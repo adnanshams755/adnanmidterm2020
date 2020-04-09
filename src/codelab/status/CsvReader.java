@@ -63,6 +63,15 @@ public class CsvReader {
             }
         }
 
+        int size = roster.size();
+        int total = 0;
+        for (Trainee tr: roster) {
+            total+=tr.getNumberOfExercisesSolved();
+        }
+
+        System.out.println("\nThe average number is: "+total/size);
+
+
     }
 
 }
