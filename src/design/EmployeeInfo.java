@@ -2,7 +2,7 @@ package design;
 
 import java.util.Scanner;
 
-public class EmployeeInfo {
+public class EmployeeInfo extends EmployeeProfile {
 	
  /*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
  * Also, Employee interface can be implemented into an abstract class.So create an Abstract class
@@ -21,6 +21,10 @@ public class EmployeeInfo {
 	 * declare few static and final fields and some non-static fields
 	 */
 	static String companyName;
+	public static int Salary =0;
+	public static int years = 0;
+	public int employeeId;
+	private String countryName;
 	
 	/*
 	 * You must implement the logic for below 2 methods and 
@@ -32,11 +36,28 @@ public class EmployeeInfo {
 	 * you must have multiple constructor.
 	 * Must implement below constructor.
 	 */
+	public EmployeeInfo(){}
 	public EmployeeInfo(int employeeId){
-		
+		this.employeeId = employeeId;
 	}
     public EmployeeInfo(String name, int employeeId){
-		
+		super(name);
+		this.employeeId = employeeId;
+	}
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+	@Override
+	public int totalChildrenAge(int a, int b, int c, int d){
+		int total =a + b + c + d - 1;
+		return total;
+	}
+	public void employeeMood(){
+		System.out.println("they are in good mood");
 	}
 	
 	/*
@@ -47,12 +68,23 @@ public class EmployeeInfo {
 	 * So you probably need to send 2 arguments.
 	 * 
 	 */
-	public static int calculateEmployeeBonus(int numberOfYearsWithCompany){
-		int total=0;
-
-
-
+	public static double calculateEmployeeBonus(int years){
+		double performence = 0;
+		if (years >= 10){
+			performence = .20;
+		}else if (years < 10 && years >= 5){
+			performence = .10;
+		}else if (years < 5 && years>=1 ){
+			performence = .05;
+		}else {
+			System.out.println("bonus is for who work more than a year");
+		}
+		double total = (Salary * performence);
+		System.out.println("Bonus: "+total);
 		return total;
+
+
+
 	}
 	
 	/*
@@ -74,10 +106,31 @@ public class EmployeeInfo {
         //implement numbers of year from above two dates
 		//Calculate pension
 
+		try {
+			EmployeeInfo.years = Integer.parseInt(convertedTodaysDate.substring(convertedTodaysDate.indexOf('/')+1,convertedTodaysDate.length()))- Integer.parseInt(convertedJoiningDate.substring(convertedJoiningDate.indexOf('/')+1,convertedJoiningDate.length()));
+			if (EmployeeInfo.years < 1){
+				System.out.println("who worked more than a year get pension");
+				return 0;
+			}
 
+		}catch (Exception e){
+			System.out.println("there was an error");
+		}
+
+		//Calculate pension
+		double pension = .05;
+		for(int i = 0; i< EmployeeInfo.years;i++){
+			pension += .05;
+		}
+		total = (int) (Salary*pension);
+		System.out.println("Pension: "+total);
 
 		return total;
 	}
+
+
+
+
 	private static class DateConversion {
 
 		public DateConversion(Months months){}
