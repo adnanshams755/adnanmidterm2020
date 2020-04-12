@@ -118,11 +118,31 @@ public class Sort {
     }
 
 
-    public int [] bucketSort(int [] array){
+    public int [] bucketSort(int [] array, int maxArrayElementValue){
         int [] list = array;
         //implement here
-        
-        
+        final long startTime = System.currentTimeMillis();
+        int max =  maxArrayElementValue;
+        int [] bucket=new int[max+1];
+
+        for (int i=0; i<bucket.length; i++) {
+            bucket[i]=0;
+        }
+
+        for (int i=0; i<list.length; i++) {
+            bucket[list[i]]++;
+        }
+
+        int position=0;
+        for (int i=0; i<bucket.length; i++) {
+            for (int j=0; j<bucket[i]; j++) {
+                list[position++]=i;
+            }
+        }
+
+        final long endTime = System.currentTimeMillis();
+        final long executionTime = endTime - startTime;
+        this.executionTime = executionTime;
 
         return list;
     }
@@ -130,8 +150,36 @@ public class Sort {
     public int [] shellSort(int [] array){
         int [] list = array;
         //implement here
-        
-        
+        final long startTime = System.currentTimeMillis();
+        int inner, outer;
+        int temp;
+        int h = 1;
+        while(h <= array.length/3)
+            h = h*3 + 1;
+        while(h>0)
+        {
+            for(outer=h; outer<array.length; outer++)
+            {
+                temp = list[outer];
+                inner = outer;
+                while(inner > h-1 && list[inner-h] >= temp)
+                {
+                    list[inner] = list[inner-h];
+                    inner -= h;
+                }
+                list[inner] = temp;
+            }
+            h = (h-1) / 3;
+        }
+        final long endTime = System.currentTimeMillis();
+        final long executionTime = endTime - startTime;
+        this.executionTime = executionTime;
+
+
+
+
+
+
 
         return list;
     }
